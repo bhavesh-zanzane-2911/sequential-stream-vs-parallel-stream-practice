@@ -40,6 +40,22 @@ class StreamBehaviourUnderstandingTest {
     }
 
     @Test
+    void processParallelForGivenCapacityAndReturnListWithForEachTerminalOperationWithLessNumbers() {
+        //given
+        //With 4 available cores and 4 tasks it's not mandatory to have 4 threads to process that task
+        //Max thread count is 4 from fork-join-pool including main thread as well
+        int capacity=4;
+        int sleepTimeInMilliSeconds=10;
+        List<Integer> listOfIntegersBeforeProcess = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
+        //when
+        List<Integer> listOfIntegersAfterProcess = StreamBehaviourUnderstanding.processParallelyForGivenCapacityAndReturnList(capacity, sleepTimeInMilliSeconds, false);
+        //then
+        //The order of numbers should not be same
+        Assertions.assertNotEquals(listOfIntegersBeforeProcess, listOfIntegersAfterProcess);
+
+    }
+
+    @Test
     void processSequentiallyForGivenCapacityAndReturnList() {
         //given
         int capacity=100;
