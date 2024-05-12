@@ -4,66 +4,63 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class StreamBehaviourUnderstanding {
 
     private static final Logger LOG = LoggerFactory.getLogger(StreamBehaviourUnderstanding.class);
 
-    public static void main(String[] args) {
-        int availableProcessors = Runtime.getRuntime().availableProcessors();
-        LOG.info("availableProcessors : {} ", availableProcessors);
-        processParallelyForGivenCapacityAndReturnList(100,10);
-        processSequentiallyForGivenCapacityAndReturnList(100, 10);
-    }
-
-    public static List<Integer> processParallelyForGivenCapacityAndReturnList(int capacity, int sleepTimeInMilliSeconds) {
-        List<Integer> listOfNumbers = getListOfNumbersWithGivenCapacity(capacity);
+    public static List<Integer> processParallelyForGivenCapacityAndReturnList(int capacity, int sleepTimeInMilliSeconds, boolean isUseForEachOrdered) {
+        List<Integer> listOfNumbers = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
         long startTime = System.currentTimeMillis();
-        List<Integer> numbersAfterFiltering = listOfNumbers.parallelStream().filter(i ->
+        List<Integer> numbersAfterFiltering = new ArrayList<>();
+        Set<String> threadNamesUsedToProcess = new HashSet<>();
+        Stream<Integer> integerStream = listOfNumbers.parallelStream().filter(i ->
         {
-            sleep(sleepTimeInMilliSeconds);
+            StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
             LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
             return i < capacity;
-        }).toList();
+        });
+        if (isUseForEachOrdered) {
+            integerStream.forEachOrdered(numberAfterFiltering -> {
+                threadNamesUsedToProcess.add(Thread.currentThread().getName());
+                numbersAfterFiltering.add(numberAfterFiltering);
+            });
+        } else {
+            integerStream.forEach(numberAfterFiltering -> {
+                threadNamesUsedToProcess.add(Thread.currentThread().getName());
+                numbersAfterFiltering.add(numberAfterFiltering);
+            });
+        }
+
         long endTime = System.currentTimeMillis();
-        LOG.info("Time taken by Parallel Stream {}",endTime-startTime);
         LOG.info("{}", numbersAfterFiltering);
+        LOG.info("Threads Used {}", threadNamesUsedToProcess);
+        LOG.info("Time taken by Parallel Stream {}", endTime - startTime);
         return numbersAfterFiltering;
-
     }
-
-
 
     public static List<Integer> processSequentiallyForGivenCapacityAndReturnList(int capacity, int sleepTimeInMilliSeconds) {
-        List<Integer> listOfNumbers = getListOfNumbersWithGivenCapacity(capacity);
+        List<Integer> listOfNumbers = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
         long startTime = System.currentTimeMillis();
-        List<Integer> numbersAfterFiltering = listOfNumbers.stream().filter(i ->
+        List<Integer> numbersAfterFiltering = new ArrayList<>();
+        Set<String> threadNamesUsedToProcess = new HashSet<>();
+        listOfNumbers.stream().filter(i ->
         {
-            sleep(sleepTimeInMilliSeconds);
+            StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
             LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
             return i < capacity;
-        }).toList();
+        }).forEach(numberAfterFiltering -> {
+            threadNamesUsedToProcess.add(Thread.currentThread().getName());
+            numbersAfterFiltering.add(numberAfterFiltering);
+        });
         long endTime = System.currentTimeMillis();
-        LOG.info("Time taken by Sequential Stream {}",endTime-startTime);
         LOG.info("{}", numbersAfterFiltering);
+        LOG.info("Threads Used {}", threadNamesUsedToProcess);
+        LOG.info("Time taken by Sequential Stream {}", endTime - startTime);
         return numbersAfterFiltering;
-
-    }
-
-    private static void sleep(int milliSeconds) {
-        try {
-            Thread.sleep(milliSeconds);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static List<Integer> getListOfNumbersWithGivenCapacity(int capacity) {
-        List<Integer> numbers = new ArrayList<>();
-        for (int i = 0; i <= capacity; i++) {
-            numbers.add(i);
-        }
-        return numbers;
     }
 }
