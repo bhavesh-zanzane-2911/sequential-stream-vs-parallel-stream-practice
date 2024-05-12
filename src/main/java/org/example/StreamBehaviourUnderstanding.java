@@ -21,7 +21,7 @@ public class StreamBehaviourUnderstanding {
         Stream<Integer> integerStream = listOfNumbers.parallelStream().filter(i ->
         {
             StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
-            LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
+            //LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
             return i < capacity;
         });
         if (isUseForEachOrdered) {
@@ -51,7 +51,7 @@ public class StreamBehaviourUnderstanding {
         listOfNumbers.stream().filter(i ->
         {
             StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
-            LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
+            //LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
             return i < capacity;
         }).forEach(numberAfterFiltering -> {
             threadNamesUsedToProcess.add(Thread.currentThread().getName());
@@ -61,6 +61,66 @@ public class StreamBehaviourUnderstanding {
         LOG.info("{}", numbersAfterFiltering);
         LOG.info("Threads Used {}", threadNamesUsedToProcess);
         LOG.info("Time taken by Sequential Stream {}", endTime - startTime);
+        return numbersAfterFiltering;
+    }
+
+
+    public static List<Integer> processParallelyFirstThenSequntialForGivenCapacityAndReturnList(int capacity, int sleepTimeInMilliSeconds, boolean isUseForEachOrdered) {
+        List<Integer> listOfNumbers = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
+        long startTime = System.currentTimeMillis();
+        List<Integer> numbersAfterFiltering = new ArrayList<>();
+        Set<String> threadNamesUsedToProcess = new HashSet<>();
+        Stream<Integer> integerStream = listOfNumbers.parallelStream().sequential().filter(i ->
+        {
+            StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
+            //LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
+            return i < capacity;
+        });
+        if (isUseForEachOrdered) {
+            integerStream.forEachOrdered(numberAfterFiltering -> {
+                threadNamesUsedToProcess.add(Thread.currentThread().getName());
+                numbersAfterFiltering.add(numberAfterFiltering);
+            });
+        } else {
+            integerStream.forEach(numberAfterFiltering -> {
+                threadNamesUsedToProcess.add(Thread.currentThread().getName());
+                numbersAfterFiltering.add(numberAfterFiltering);
+            });
+        }
+
+        long endTime = System.currentTimeMillis();
+        LOG.info("{}", numbersAfterFiltering);
+        LOG.info("Threads Used {}", threadNamesUsedToProcess);
+        LOG.info("Time taken by Parallel First and Then Sequential Stream {}", endTime - startTime);
+        return numbersAfterFiltering;
+    }
+
+    public static List<Integer> processSequentiallyFirstThenParallelForGivenCapacityAndReturnList(int capacity, int sleepTimeInMilliSeconds, boolean isUseForEachOrdered) {
+        List<Integer> listOfNumbers = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
+        long startTime = System.currentTimeMillis();
+        List<Integer> numbersAfterFiltering = new ArrayList<>();
+        Set<String> threadNamesUsedToProcess = new HashSet<>();
+        Stream<Integer> integerStream = listOfNumbers.stream().parallel().filter(i ->
+        {
+            StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
+            //LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
+            return i < capacity;
+        });
+        if (isUseForEachOrdered) {
+            integerStream.forEachOrdered(numberAfterFiltering -> {
+                threadNamesUsedToProcess.add(Thread.currentThread().getName());
+                numbersAfterFiltering.add(numberAfterFiltering);
+            });
+        } else {
+            integerStream.forEach(numberAfterFiltering -> {
+                threadNamesUsedToProcess.add(Thread.currentThread().getName());
+                numbersAfterFiltering.add(numberAfterFiltering);
+            });
+        }
+        long endTime = System.currentTimeMillis();
+        LOG.info("{}", numbersAfterFiltering);
+        LOG.info("Threads Used {}", threadNamesUsedToProcess);
+        LOG.info("Time taken by Sequential First And Then Parallel Stream {}", endTime - startTime);
         return numbersAfterFiltering;
     }
 }
