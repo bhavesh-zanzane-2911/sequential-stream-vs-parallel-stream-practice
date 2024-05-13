@@ -9,7 +9,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-public class StreamBehaviourUnderstanding {
+public final class StreamBehaviourUnderstanding {
+
+    private static final String THREADS_USED = "Threads Used {}";
+
+    private StreamBehaviourUnderstanding() {
+        //Added a private constructor to hide implicit one
+    }
 
     private static final Logger LOG = LoggerFactory.getLogger(StreamBehaviourUnderstanding.class);
 
@@ -38,7 +44,7 @@ public class StreamBehaviourUnderstanding {
 
         long endTime = System.currentTimeMillis();
         LOG.info("{}", numbersAfterFiltering);
-        LOG.info("Threads Used {}", threadNamesUsedToProcess);
+        LOG.info(THREADS_USED, threadNamesUsedToProcess);
         LOG.info("Time taken by Parallel Stream {}", endTime - startTime);
         return numbersAfterFiltering;
     }
@@ -59,7 +65,7 @@ public class StreamBehaviourUnderstanding {
         });
         long endTime = System.currentTimeMillis();
         LOG.info("{}", numbersAfterFiltering);
-        LOG.info("Threads Used {}", threadNamesUsedToProcess);
+        LOG.info(THREADS_USED, threadNamesUsedToProcess);
         LOG.info("Time taken by Sequential Stream {}", endTime - startTime);
         return numbersAfterFiltering;
     }
@@ -90,7 +96,7 @@ public class StreamBehaviourUnderstanding {
 
         long endTime = System.currentTimeMillis();
         LOG.info("{}", numbersAfterFiltering);
-        LOG.info("Threads Used {}", threadNamesUsedToProcess);
+        LOG.info(THREADS_USED, threadNamesUsedToProcess);
         LOG.info("Time taken by Parallel First and Then Sequential Stream {}", endTime - startTime);
         return numbersAfterFiltering;
     }
@@ -119,7 +125,7 @@ public class StreamBehaviourUnderstanding {
         }
         long endTime = System.currentTimeMillis();
         LOG.info("{}", numbersAfterFiltering);
-        LOG.info("Threads Used {}", threadNamesUsedToProcess);
+        LOG.info(THREADS_USED, threadNamesUsedToProcess);
         LOG.info("Time taken by Sequential First And Then Parallel Stream {}", endTime - startTime);
         return numbersAfterFiltering;
     }

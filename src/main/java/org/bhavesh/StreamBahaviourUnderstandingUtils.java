@@ -1,15 +1,25 @@
 package org.bhavesh;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public final class StreamBahaviourUnderstandingUtils {
 
+    private static final Logger LOG = LoggerFactory.getLogger(StreamBahaviourUnderstandingUtils.class);
+
+    private StreamBahaviourUnderstandingUtils() {
+        //Added a private constructor to avoid explicit object creation
+    }
+
     public static void sleep(int milliSeconds) {
         try {
             Thread.sleep(milliSeconds);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException interruptedException) {
+            LOG.error("Exception occurred during sleeping a thread:", interruptedException);
+            throw new RuntimeException(interruptedException);
         }
     }
 
