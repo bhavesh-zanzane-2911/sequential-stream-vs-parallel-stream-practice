@@ -20,13 +20,13 @@ public final class StreamBehaviourUnderstanding {
     private static final Logger LOG = LoggerFactory.getLogger(StreamBehaviourUnderstanding.class);
 
     public static List<Integer> processParallelyForGivenCapacityAndReturnList(int capacity, int sleepTimeInMilliSeconds, boolean isUseForEachOrdered) {
-        List<Integer> listOfNumbers = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
+        List<Integer> listOfNumbers = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
         long startTime = System.currentTimeMillis();
         List<Integer> numbersAfterFiltering = new ArrayList<>();
         Set<String> threadNamesUsedToProcess = new HashSet<>();
         Stream<Integer> integerStream = listOfNumbers.parallelStream().filter(i ->
         {
-            StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
+            StreamBehaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
             //LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
             return i < capacity;
         });
@@ -50,13 +50,13 @@ public final class StreamBehaviourUnderstanding {
     }
 
     public static List<Integer> processSequentiallyForGivenCapacityAndReturnList(int capacity, int sleepTimeInMilliSeconds) {
-        List<Integer> listOfNumbers = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
+        List<Integer> listOfNumbers = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
         long startTime = System.currentTimeMillis();
         List<Integer> numbersAfterFiltering = new ArrayList<>();
         Set<String> threadNamesUsedToProcess = new HashSet<>();
         listOfNumbers.stream().filter(i ->
         {
-            StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
+            StreamBehaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
             //LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
             return i < capacity;
         }).forEach(numberAfterFiltering -> {
@@ -72,13 +72,13 @@ public final class StreamBehaviourUnderstanding {
 
 
     public static List<Integer> processParallelyFirstThenSequntialForGivenCapacityAndReturnList(int capacity, int sleepTimeInMilliSeconds, boolean isUseForEachOrdered) {
-        List<Integer> listOfNumbers = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
+        List<Integer> listOfNumbers = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
         long startTime = System.currentTimeMillis();
         List<Integer> numbersAfterFiltering = new ArrayList<>();
         Set<String> threadNamesUsedToProcess = new HashSet<>();
         Stream<Integer> integerStream = listOfNumbers.parallelStream().sequential().filter(i ->
         {
-            StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
+            StreamBehaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
             //LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
             return i < capacity;
         });
@@ -102,13 +102,13 @@ public final class StreamBehaviourUnderstanding {
     }
 
     public static List<Integer> processSequentiallyFirstThenParallelForGivenCapacityAndReturnList(int capacity, int sleepTimeInMilliSeconds, boolean isUseForEachOrdered) {
-        List<Integer> listOfNumbers = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
+        List<Integer> listOfNumbers = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity);
         long startTime = System.currentTimeMillis();
         List<Integer> numbersAfterFiltering = new ArrayList<>();
         Set<String> threadNamesUsedToProcess = new HashSet<>();
         Stream<Integer> integerStream = listOfNumbers.stream().parallel().filter(i ->
         {
-            StreamBahaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
+            StreamBehaviourUnderstandingUtils.sleep(sleepTimeInMilliSeconds);
             //LOG.info("Thread Name: {} Number: {}", Thread.currentThread().getName(), i);
             return i < capacity;
         });

@@ -16,7 +16,7 @@ class StreamBehaviourUnderstandingTest {
         //given
         int capacity=100;
         int sleepTimeInMilliSeconds=10;
-        List<Integer> listOfIntegersBeforeProcess = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
+        List<Integer> listOfIntegersBeforeProcess = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
         //when
         List<Integer> listOfIntegersAfterProcess = StreamBehaviourUnderstanding.processParallelyForGivenCapacityAndReturnList(capacity, sleepTimeInMilliSeconds, false);
         //then
@@ -30,7 +30,7 @@ class StreamBehaviourUnderstandingTest {
         //given
         int capacity=100;
         int sleepTimeInMilliSeconds=10;
-        List<Integer> listOfIntegersBeforeProcess = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
+        List<Integer> listOfIntegersBeforeProcess = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
         //when
         List<Integer> listOfIntegersAfterProcess = StreamBehaviourUnderstanding.processParallelyForGivenCapacityAndReturnList(capacity, sleepTimeInMilliSeconds, true);
         //then
@@ -46,7 +46,7 @@ class StreamBehaviourUnderstandingTest {
         //Max thread count is 4 from fork-join-pool including main thread as well
         int capacity=4;
         int sleepTimeInMilliSeconds=10;
-        List<Integer> listOfIntegersBeforeProcess = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
+        List<Integer> listOfIntegersBeforeProcess = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
         //when
         List<Integer> listOfIntegersAfterProcess = StreamBehaviourUnderstanding.processParallelyForGivenCapacityAndReturnList(capacity, sleepTimeInMilliSeconds, false);
         //then
@@ -60,7 +60,7 @@ class StreamBehaviourUnderstandingTest {
         //given
         int capacity=100;
         int sleepTimeInMilliSeconds=10;
-        List<Integer> listOfIntegersBeforeProcess = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
+        List<Integer> listOfIntegersBeforeProcess = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
         //when
         List<Integer> listOfIntegersAfterProcess = StreamBehaviourUnderstanding.processSequentiallyForGivenCapacityAndReturnList(capacity, sleepTimeInMilliSeconds);
         //then
@@ -73,7 +73,7 @@ class StreamBehaviourUnderstandingTest {
         //given
         int capacity=100;
         int sleepTimeInMilliSeconds=10;
-        List<Integer> listOfIntegersBeforeProcess = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
+        List<Integer> listOfIntegersBeforeProcess = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
         //when
         List<Integer> listOfIntegersAfterProcess = StreamBehaviourUnderstanding.processParallelyFirstThenSequntialForGivenCapacityAndReturnList(capacity, sleepTimeInMilliSeconds, false);
         //then
@@ -88,7 +88,7 @@ class StreamBehaviourUnderstandingTest {
         //given
         int capacity=100;
         int sleepTimeInMilliSeconds=10;
-        List<Integer> listOfIntegersBeforeProcess = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
+        List<Integer> listOfIntegersBeforeProcess = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
         //when
         List<Integer> listOfIntegersAfterProcess = StreamBehaviourUnderstanding.processParallelyFirstThenSequntialForGivenCapacityAndReturnList(capacity, sleepTimeInMilliSeconds, true);
         //then
@@ -103,7 +103,7 @@ class StreamBehaviourUnderstandingTest {
         //given
         int capacity=100;
         int sleepTimeInMilliSeconds=10;
-        List<Integer> listOfIntegersBeforeProcess = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
+        List<Integer> listOfIntegersBeforeProcess = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
         //when
         List<Integer> listOfIntegersAfterProcess = StreamBehaviourUnderstanding.processSequentiallyFirstThenParallelForGivenCapacityAndReturnList(capacity, sleepTimeInMilliSeconds, true);
         //then
@@ -118,7 +118,7 @@ class StreamBehaviourUnderstandingTest {
         //given
         int capacity=100;
         int sleepTimeInMilliSeconds=10;
-        List<Integer> listOfIntegersBeforeProcess = StreamBahaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
+        List<Integer> listOfIntegersBeforeProcess = StreamBehaviourUnderstandingUtils.getListOfNumbersWithGivenCapacity(capacity-1);
         //when
         List<Integer> listOfIntegersAfterProcess = StreamBehaviourUnderstanding.processSequentiallyFirstThenParallelForGivenCapacityAndReturnList(capacity, sleepTimeInMilliSeconds, false);
         //then

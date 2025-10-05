@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class StreamBahaviourUnderstandingUtils {
+public final class StreamBehaviourUnderstandingUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(StreamBahaviourUnderstandingUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StreamBehaviourUnderstandingUtils.class);
 
-    private StreamBahaviourUnderstandingUtils() {
+    private StreamBehaviourUnderstandingUtils() {
         //Added a private constructor to avoid explicit object creation
     }
 
